@@ -7,7 +7,6 @@ import { FcGoogle } from "react-icons/fc";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-  // Updated to use "username" instead of "email"
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,47 +22,39 @@ const SignIn = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setMessage("");
     setLoading(true);
+    setMessage("");
 
     try {
-      const response = await fetch(
-        "https://wms-ipcx.onrender.com/api/auth/login/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: formData.username,
-            password: formData.password,
-          }),
-        }
-      );
+      const response = await fetch("https://wms-ipcx.onrender.com/api/auth/login/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
       const data = await response.json();
 
       if (response.ok) {
-        // Save tokens and user info as needed
         localStorage.setItem("accessToken", data.token.access);
         localStorage.setItem("refreshToken", data.token.refresh);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("username", data.user.username);
 
         setLoading(false);
-        navigate("/dashboard"); // Redirect to Dashboard
+        navigate("/dashboard");
       } else {
+        setMessage("Login failed! Check your username or password.");
         setLoading(false);
-        setMessage(data.detail || "Login failed!");
       }
     } catch (error) {
+      setMessage("An error occurred. Try again later.");
       setLoading(false);
-      setMessage("An error occurred. Please try again.");
     }
   };
 
   return (
     <div className="container">
       <div className="head-items">
-        <img src={logo} alt="Logo" />
+        <img src={logo} alt="" />
         <h2>Waste Management Application</h2>
       </div>
 
@@ -75,47 +66,26 @@ const SignIn = () => {
         </button>
         <p className="or-text">Or</p>
 
-        {message && (
-          <p className="message" style={{ background: "#FF4C4C" }}>
-            {message}
-          </p>
-        )}
-
-        {/* Show spinner if loading */}
+        {message && <p className="message" style={{ background: "#FF4C4C" }}>{message}</p>}
         {loading && <div className="spinner"></div>}
 
         <form onSubmit={handleSignIn}>
           <label>*Username</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="Enter username"
-            onChange={handleChange}
-            required
-          />
+          <input type="text" name="username" placeholder="Enter username" onChange={handleChange} required />
 
           <label>*Password</label>
           <div className="password-wrapper">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Enter password"
-              onChange={handleChange}
-              required
-            />
+            <input type={showPassword ? "text" : "password"} name="password" placeholder="Enter Password" onChange={handleChange} required />
             <span className="eye-icon" onClick={togglePasswordVisibility}>
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
 
-          <button className="signin-btn" type="submit" disabled={loading}>
-            Sign In
-          </button>
+          <button className="signin-btn" disabled={loading}>Sign In</button>
         </form>
+
         <p className="forgot-password">Forgot Password?</p>
-        <p>
-          Don’t have an account? <Link to="/signup">Sign Up</Link>
-        </p>
+        <p>Don’t have an account? <Link to="/signup">Sign Up</Link></p>
       </div>
     </div>
   );

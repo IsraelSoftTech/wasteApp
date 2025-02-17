@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import logo from "../../assets/logo.png";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 const SignUp = () => {
-  // Renamed "fullName" to "username" to match the API
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    confirm_password: "",
   });
+
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -22,62 +23,43 @@ const SignUp = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setMessage("");
 
-    const { username, email, password, confirmPassword } = formData;
-
-    if (!username || !email || !password || !confirmPassword) {
-      setMessage("Please fill in all fields.");
-      return;
-    }
-
-    if (password !== confirmPassword) {
+    if (formData.password !== formData.confirm_password) {
       setMessage("Passwords do not match!");
+      setLoading(false);
       return;
     }
-
-    setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://wms-ipcx.onrender.com/api/auth/signup/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username,
-            email,
-            password,
-            confirm_password: confirmPassword, // Note the API expects "confirm_password"
-          }),
-        }
-      );
+      const response = await fetch("https://wms-ipcx.onrender.com/api/auth/signup/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
       const data = await response.json();
 
-      if (response.status === 201) {
-        setMessage("Account Created Successfully!");
-        // Optionally, store tokens if needed:
-        // localStorage.setItem("accessToken", data.token.access);
-        setLoading(false);
+      if (response.ok) {
+        setMessage("Account Created Successfully! Redirecting...");
         setTimeout(() => {
           navigate("/");
         }, 2000);
       } else {
-        setLoading(false);
-        setMessage(data.detail || "Signup failed!");
+        setMessage(data.error || "Sign up failed! Try again.");
       }
     } catch (error) {
-      setLoading(false);
-      setMessage("An error occurred. Please try again.");
+      setMessage("An error occurred. Try again later.");
     }
+
+    setLoading(false);
   };
 
   return (
     <div className="container">
       <div className="head-items">
-        <img src={logo} alt="Logo" />
+        <img src={logo} alt="" />
         <h2>Waste Management Application</h2>
       </div>
 
@@ -90,52 +72,24 @@ const SignUp = () => {
         <p className="or-text">Or</p>
 
         {message && <p className="message">{message}</p>}
-        {loading && <div className="spinner"></div>}
 
         <form onSubmit={handleSignUp}>
           <label>*Username</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="Enter username"
-            onChange={handleChange}
-            required
-          />
+          <input type="text" name="username" placeholder="Enter Username" onChange={handleChange} required />
 
           <label>*Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter email"
-            onChange={handleChange}
-            required
-          />
+          <input type="email" name="email" placeholder="Enter Email" onChange={handleChange} required />
 
           <label>*Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter password"
-            onChange={handleChange}
-            required
-          />
+          <input type="password" name="password" placeholder="Enter Password" onChange={handleChange} required />
 
           <label>*Confirm Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Repeat password"
-            onChange={handleChange}
-            required
-          />
+          <input type="password" name="confirm_password" placeholder="Repeat Password" onChange={handleChange} required />
 
-          <button className="signup-btn" type="submit" disabled={loading}>
-            Sign Up
-          </button>
+          <button className="signup-btn" disabled={loading}>Sign Up</button>
         </form>
-        <p>
-          Already have an account? <Link to="/">Sign In</Link>
-        </p>
+
+        <p>Already have an account? <Link to="/">Sign In</Link></p>
       </div>
     </div>
   );
