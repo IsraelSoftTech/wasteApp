@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignIn.css";
 import logo from "../../assets/logo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+
+const firebaseUrl = "https://register-d6145-default-rtdb.firebaseio.com/users.json";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,29 +28,29 @@ const SignIn = () => {
     setMessage("");
 
     try {
-      const response = await fetch("https://wms-ipcx.onrender.com/api/auth/login/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(firebaseUrl);
+      const users = await response.json();
 
-      const data = await response.json();
+      if (users) {
+        const userFound = Object.values(users).find(
+          (user) => user.username === formData.username && user.password === formData.password
+        );
 
-      if (response.ok) {
-        localStorage.setItem("accessToken", data.token.access);
-        localStorage.setItem("refreshToken", data.token.refresh);
-        localStorage.setItem("username", data.user.username);
-
-        setLoading(false);
-        navigate("/dashboard");
+        if (userFound) {
+          localStorage.setItem("username", userFound.username);
+          setLoading(false);
+          navigate("/dashboard");
+        } else {
+          setMessage("Login failed! Check your username or password.");
+        }
       } else {
-        setMessage("Login failed! Check your username or password.");
-        setLoading(false);
+        setMessage("No users found. Please sign up first.");
       }
     } catch (error) {
       setMessage("An error occurred. Try again later.");
-      setLoading(false);
     }
+
+    setLoading(false);
   };
 
   return (

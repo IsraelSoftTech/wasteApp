@@ -5,6 +5,8 @@ import logo from "../../assets/logo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
+const firebaseUrl = "https://register-d6145-default-rtdb.firebaseio.com/users.json";
+
 const SignUp = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -32,14 +34,18 @@ const SignUp = () => {
       return;
     }
 
+    const newUser = {
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+    };
+
     try {
-      const response = await fetch("https://wms-ipcx.onrender.com/api/auth/signup/", {
+      const response = await fetch(firebaseUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(newUser),
       });
-
-      const data = await response.json();
 
       if (response.ok) {
         setMessage("Account Created Successfully! Redirecting...");
@@ -47,7 +53,7 @@ const SignUp = () => {
           navigate("/");
         }, 2000);
       } else {
-        setMessage(data.error || "Sign up failed! Try again.");
+        setMessage("Sign-up failed! Try again.");
       }
     } catch (error) {
       setMessage("An error occurred. Try again later.");
