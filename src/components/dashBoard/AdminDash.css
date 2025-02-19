@@ -452,3 +452,28 @@ top: 5px;
 .close-btn:hover {
   background: #c9302c;
 }
+/* graph */
+.graph-box {
+  width: 100%;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.graph-box h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #6600cc;
+  margin-bottom: 10px;
+}
+
+.graph-placeholder {
+  width: 100%;
+  height: 115px; /* Adjust the height dynamically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

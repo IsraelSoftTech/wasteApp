@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 import { FaRegFileAlt, FaUserAlt, FaBell } from "react-icons/fa";
 import { MdDelete, MdEdit, MdMenu, MdSearch } from "react-icons/md";
+import { AiOutlinePlusCircle } from 'react-icons/ai';
+
 import { FiTrash2, FiEdit, FiUsers } from "react-icons/fi";
 import { FaRegCalendarAlt, FaGraduationCap } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import "./AdminDash.css";
 import logo from "../../assets/logo.png";
 import { Navigate, useNavigate } from "react-router-dom";
+// Graph
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip } from "chart.js";
+import EduContent from "../EduContent/EduContent";
+
+// Register necessary Chart.js components
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
 
 const AdminDash = () => {
+  
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
@@ -40,7 +50,28 @@ const AdminDash = () => {
   const closeEditProfile = () => {
     setIsEditProfileOpen(false);
   };
+// graph
+const data = {
+  labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+  datasets: [
+    {
+      label: "Reports Analysis",
+      data: [10, 25, 15, 30, 40], // Adjust these values to match the image trend
+      backgroundColor: "rgba(173, 216, 230, 0.5)",
+      borderColor: "#6495ED",
+      fill: true,
+      tension: 0.4, // Curve effect
+    },
+  ],
+};
 
+const options = {
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    y: { beginAtZero: true },
+  },
+};
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
@@ -127,84 +158,13 @@ const AdminDash = () => {
 
         {/* Educational Content */}
         <section className="content-section">
-          <div className="content-box">
-            <h3>Educational Contents</h3>
-            <ul>
-              <li>
-                Importance of keeping a clean env...
-
-                <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-
-              </li>
-              <li>
-                Importance of keeping a clean env...
-
-                <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-
-              </li>
-              <li>
-                Importance of keeping a clean env...
-
-                <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-
-              </li>
-              <li>
-                Importance of keeping a clean env...
-
-                <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-
-              </li>
-              <li>
-                Importance of keeping a clean env...
-
-                <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-
-              </li>
-              <li>
-                Importance of keeping a clean env...
-
-                <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-
-              </li>
-              <li>
-                How to keep a clean environment fro...
-                <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </li>
-              <li>
-                Dangers of dirty environments on the...
-                 <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <div className="graph-box">
-            <h3>Reports Analysis (graph)</h3>
-            <div className="graph-placeholder"></div>
-          </div>
+         <EduContent/>
+ <div className="graph-box">
+      <h3>Reports Analysis (Graph)</h3>
+      <div className="graph-placeholder">
+        <Line data={data} options={options} />
+      </div>
+    </div>
         </section>
 
         {/* User and Dump Site */}
