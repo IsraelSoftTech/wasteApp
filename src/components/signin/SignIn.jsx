@@ -42,7 +42,7 @@ const SignIn = () => {
           if (userFound.username === "admin_account" && userFound.password === "admin_password") {
             navigate("/admin-dashboard"); // Open AdminDash.jsx
           } else {
-            navigate("/userDashboard"); // Open UserDash.jsx
+            navigate("/user-dashboard"); // Open UserDash.jsx
           }
         } else {
           setMessage("Login failed! Check your username or password.");
