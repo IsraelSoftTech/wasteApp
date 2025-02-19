@@ -6,10 +6,16 @@ import { FaRegCalendarAlt, FaGraduationCap } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import "./AdminDash.css";
 import logo from "../../assets/logo.png";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const AdminDash = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const navigate = useNavigate(); // Used for navigation
+
 
   const handleMenuClick = () => {
     setIsSidebarOpen((prev) => !prev);
@@ -17,6 +23,22 @@ const AdminDash = () => {
 
   const handleSearchClick = () => {
     setIsSearchVisible((prev) => !prev);
+  };
+  const toggleProfileDropdown = () => {
+    setIsProfileDropdownOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    navigate("/"); // Redirect to Signin.jsx
+  };
+
+  const openEditProfile = () => {
+    setIsEditProfileOpen(true);
+    setIsProfileDropdownOpen(false);
+  };
+
+  const closeEditProfile = () => {
+    setIsEditProfileOpen(false);
   };
 
   return (
@@ -44,7 +66,7 @@ const AdminDash = () => {
 
       {/* Main Content */}
       <main className="main-content">
-        <header className="topbar">
+      <header className="topbar">
           <MdMenu className="menu-icon" onClick={handleMenuClick} />
           <h2>WASTE MANAGEMENT APPLICATION</h2>
           <div className={`search-box-mobile ${isSearchVisible ? "active" : ""}`}>
@@ -58,9 +80,33 @@ const AdminDash = () => {
           <div className="top-icons">
             <FaBell className="icon bell" />
             <div className="notification-badge">1</div>
-            <div className="profile-icon"><FaUserAlt/></div>
+            <div className="profile-container">
+              <FaUserAlt className="profile-icon" onClick={toggleProfileDropdown} />
+              {isProfileDropdownOpen && (
+                <div className="profile-dropdown">
+                  <p onClick={openEditProfile}>Edit Profile</p>
+                  <p onClick={handleLogout}>Logout</p>
+                </div>
+              )}
+            </div>
           </div>
         </header>
+        {/* Edit Profile Modal */}
+        {isEditProfileOpen && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h3>Edit Profile</h3>
+              <label>Username:</label>
+              <input type="text" value="admin_account" readOnly />
+              <label>Password:</label>
+              <input type="text" value="admin_password" readOnly />
+              <button className="close-btn" onClick={closeEditProfile}>
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+
         <section className="stats-section">
           <div className="stat-card">
             <FaRegFileAlt className="icon" />

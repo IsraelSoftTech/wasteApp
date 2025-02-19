@@ -26,20 +26,24 @@ const SignIn = () => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
-
+  
     try {
       const response = await fetch(firebaseUrl);
       const users = await response.json();
-
+  
       if (users) {
         const userFound = Object.values(users).find(
           (user) => user.username === formData.username && user.password === formData.password
         );
-
+  
         if (userFound) {
           localStorage.setItem("username", userFound.username);
-          setLoading(false);
-          navigate("/dashboard");
+          
+          if (userFound.username === "admin_account" && userFound.password === "admin_password") {
+            navigate("/admin-dashboard"); // Open AdminDash.jsx
+          } else {
+            navigate("/userDashboard"); // Open UserDash.jsx
+          }
         } else {
           setMessage("Login failed! Check your username or password.");
         }
@@ -49,9 +53,11 @@ const SignIn = () => {
     } catch (error) {
       setMessage("An error occurred. Try again later.");
     }
-
+  
     setLoading(false);
   };
+  
+  
 
   return (
     <div className="container">
