@@ -95,7 +95,7 @@ const SignUp = () => {
           <button className="signup-btn" disabled={loading}>Sign Up</button>
         </form>
 
-        <p>Already have an account? <Link to="/">Sign In</Link></p>
+        <p>Already have an account? <Link to="/" style={{color:"#4CAF50"}}>Sign In</Link></p>
       </div>
     </div>
   );

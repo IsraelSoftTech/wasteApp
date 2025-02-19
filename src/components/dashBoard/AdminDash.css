@@ -12,7 +12,7 @@
   
   .sidebar {
     width: 250px;
-    background: #6600cc;
+    background: #181818;
     color: white;
     padding: 20px;
   }
@@ -30,7 +30,7 @@ width: 80px;
   }
   
 .topbar h2{
-    color: #6600cc;
+    color: #fff;
     text-align: center;
     align-items: center;
     font-size: 22px;
@@ -49,23 +49,23 @@ width: 80px;
     gap: 10px;
   }
   .nav-links li:hover{
-    background: #601ea3;
+    background: #181818;
   }
   
   .nav-links .active {
-    background: white;
-    color: black;
+    background: #23AE60;
+    color: #fff;
     border-radius: 4px;
     padding: 10px;
   }
   .nav-links .active:hover{
-    color: #601ea3;
-    background: #f1e4e4;
+    color: #23AE60;
+    background: #fff;
   }
   
   .main-content {
     flex: 1;
-    background: #fceaff;
+    background: #192821;
     padding: 20px;
   }
 
@@ -73,7 +73,7 @@ width: 80px;
     display: flex; /* Use flex instead of grid */
     align-items: center;
     justify-content: space-between;
-    background: white;
+    background: #101010;
     top: 0;
   
     width: 82vw; /* Ensure it spans the full width */
@@ -86,21 +86,21 @@ width: 80px;
     font-size: 30px;
   }
   .bell{
-    color:#2EA6E5;
+    color:#fff;
   }
   
   .search-box {
     display: flex;
     align-items: center;
 
-    border: 1px solid #601ea3;
+    border: 1px solid #fff;
     padding: 5px;
     gap: 4px;
     border-radius: 5px;
   }
   .search-icon{
     font-size: 26px;
-    color: #601ea3;
+    color: #fff;
   }
   .search-box input {
     border: none;
@@ -119,15 +119,20 @@ width: 80px;
   }
   
   .stat-card {
-
-    background: #6600cc;
+    background: #101010;
     color: white;
     padding: 15px;
     border-radius: 4px;
     flex: 1;
     text-align: center;
+  
+  }
+  .stat-card p{
+    text-align: center;
+    color: #23AE60;
   }
   .stat-card h3{
+    text-align: center;
     color: #fff;
   }
   .notification-badge{
@@ -155,7 +160,7 @@ width: 80px;
     gap: 20px;
   }
   .profile-icon {
-    color:#2EA6E5;
+    color:#fff;
     font-size: 40px;
     cursor: pointer;
   }
@@ -180,22 +185,25 @@ width: 80px;
     width: 100%;
   }
   tr,td,th{
-    border-bottom: 1px solid rgb(241, 237, 237);
+    border-bottom: 1px solid rgb(37, 37, 37);
     text-align: center;
   }
   .user-box{
-    background: white;
+    background: #101010;
+    color: #fff;
     padding: 30px;
     border-radius: 10px;
     flex: 1;
-    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
     overflow-y: auto;
-    height: 300px;
+    height: 250px;
+  }
+  .user-box h3{
+    color: #23AE60;
   }
   .content-box li{
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid rgb(241, 237, 237);
+    border-bottom: 1px solid rgb(48, 47, 47);
    }
 
   
@@ -203,12 +211,15 @@ width: 80px;
   .delete-icon {
     cursor: pointer;
     margin-left: 10px;
-    width: 18px;
-    height: 18px;
-    color: rgb(202, 6, 6);
+    width: 24px;
+    height: 24px;
+    color: rgb(7, 7, 7);
+    background: #fff;
+    padding: 5px;
+    border-radius: 50%;
   }
   .edit-icon{
-    color:green;
+    color:#23AE60;
     width: 18px;
     height: 18px;
     cursor: pointer;
@@ -354,7 +365,7 @@ top: 5px;
   .menu-icon {
     font-size: 24px;
     cursor: pointer;
-    color: #078bf7;
+    color: #fff;
   }
 
 
@@ -390,6 +401,7 @@ top: 5px;
 
 .profile-dropdown {
   position: absolute;
+
   right: 0;
   background: white;
   border: 1px solid #ccc;
@@ -401,6 +413,7 @@ top: 5px;
 }
 
 .profile-dropdown p {
+  color: black;
   padding: 10px;
   margin: 0;
   cursor: pointer;
@@ -426,6 +439,7 @@ top: 5px;
 
 .modal-content {
   background: white;
+
   padding: 20px;
   border-radius: 10px;
   width: 300px;
@@ -442,7 +456,7 @@ top: 5px;
 
 .close-btn {
   background: #d9534f;
-  color: white;
+  color: rgb(209, 6, 6);
   padding: 8px 15px;
   border: none;
   border-radius: 5px;
@@ -456,7 +470,10 @@ top: 5px;
 .graph-box {
   width: 100%;
   padding: 20px;
-  background: white;
+  background: #101010;
+
+  height: 250px;
+
   border-radius: 10px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
   text-align: center;
@@ -466,7 +483,7 @@ top: 5px;
 .graph-box h3 {
   font-size: 18px;
   font-weight: bold;
-  color: #6600cc;
+  color: #23AE60;
   margin-bottom: 10px;
 }
 
@@ -474,6 +491,7 @@ top: 5px;
   width: 100%;
   height: 115px; /* Adjust the height dynamically */
   display: flex;
+
   justify-content: center;
   align-items: center;
 }

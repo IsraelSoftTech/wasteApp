@@ -93,7 +93,7 @@ const SignIn = () => {
         </form>
 
         <p className="forgot-password">Forgot Password?</p>
-        <p>Don’t have an account? <Link to="/signup">Sign Up</Link></p>
+        <p>Don’t have an account? <Link to="/signup" style={{color:"#4CAF50"}}>Sign Up</Link></p>
       </div>
     </div>
   );

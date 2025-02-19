@@ -3,8 +3,10 @@
     width: 90%;
     margin: auto;
     padding: 20px;
-    background: #fff;
+    background: #101010;
+    color: #fff;
     border-radius: 10px;
+    height: 250px;
   }
   
   .edu {
@@ -12,10 +14,12 @@
     justify-content: space-between;
     align-items: center;
   }
-  
+  .edu h3{
+    color: #23AE60;
+  }
   .add-icon {
     cursor: pointer;
-    color: green;
+    color: #23AE60;
     font-size: 40px;
   }
   
@@ -80,6 +84,9 @@
   @media (max-width: 600px) {
     .edu {
       flex-direction: column;
+    }
+    .content-box{
+      width: 100%;
     }
   
     .add-icon {

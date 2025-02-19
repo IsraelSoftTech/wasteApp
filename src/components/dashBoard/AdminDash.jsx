@@ -57,8 +57,9 @@ const data = {
     {
       label: "Reports Analysis",
       data: [10, 25, 15, 30, 40], // Adjust these values to match the image trend
-      backgroundColor: "rgba(173, 216, 230, 0.5)",
-      borderColor: "#6495ED",
+      backgroundColor: "#23AE60",
+      color:"#fff",
+      borderColor: "#fff",
       fill: true,
       tension: 0.4, // Curve effect
     },
@@ -160,7 +161,7 @@ const options = {
         <section className="content-section">
          <EduContent/>
  <div className="graph-box">
-      <h3>Reports Analysis (Graph)</h3>
+      <h3>Reports Analysis </h3>
       <div className="graph-placeholder">
         <Line data={data} options={options} />
       </div>
