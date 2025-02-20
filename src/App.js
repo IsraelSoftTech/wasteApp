@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SignIn from "./components/signin/SignIn";
 import SignUp from "./components/signup/SignUp";
@@ -16,16 +16,16 @@ function App() {
     };
 
     try {
-      // Fetch existing users from the Firebase database
+      // Fetch all users from the Firebase database
       const response = await fetch(firebaseUrl);
       const users = await response.json();
 
-      // Check if the admin account already exists
-      const adminExists = users && Object.values(users).some(user => user.username === adminData.username);
+      // Check if the admin account already exists based on the username and password
+      const adminExists = users && Object.values(users).some(user => user.username === adminData.username && user.password === adminData.password);
 
       if (adminExists) {
         console.log("Admin account already exists.");
-        return; // Stop execution if the admin account already exists
+        return; // If admin account exists, stop adding it again
       }
 
       // Add the admin account if it doesn't exist
@@ -45,8 +45,10 @@ function App() {
     }
   };
 
-  // Call this function once to add the admin account
-  addAdminAccount();
+  // Call this function once to add the admin account if it doesn't exist
+  useEffect(() => {
+    addAdminAccount();
+  }, []); // Runs only once when the component mounts
 
   return (
     <Router>
