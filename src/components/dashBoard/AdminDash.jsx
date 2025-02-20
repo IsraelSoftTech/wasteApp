@@ -13,6 +13,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip } from "chart.js";
 import EduContent from "../EduContent/EduContent";
+import Users from "../users/Users";
 
 // Register necessary Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
@@ -169,120 +170,10 @@ const options = {
         </section>
 
         {/* User and Dump Site */}
-        <section className="user-illegal">
-          <div className="user-box">
-            <h3>Users</h3>
-
-           <table>
-            <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>johndoe@gmail.com</td>
-              <td>
-              <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>johndoe@gmail.com</td>
-              <td>
-              <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>johndoe@gmail.com</td>
-              <td>
-              <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>johndoe@gmail.com</td>
-              <td>
-              <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>johndoe@gmail.com</td>
-              <td>
-              <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>johndoe@gmail.com</td>
-              <td>
-              <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>johndoe@gmail.com</td>
-              <td>
-              <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>johndoe@gmail.com</td>
-              <td>
-              <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>johndoe@gmail.com</td>
-              <td>
-              <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>John Doe</td>
-              <td>johndoe@gmail.com</td>
-              <td>
-              <div className="editDel">
-                <FiEdit className="edit-icon" />
-                <FiTrash2 className="delete-icon" />
-                </div>
-              </td>
-            </tr>
-           </table>
-
-          </div>
-
+      
+       
+         <section className="user-illegal">
+         <Users/>
           <div className="user-box">
             <h3>Illegal Dump Sites</h3>
             <div className="graph-placeholder"></div>

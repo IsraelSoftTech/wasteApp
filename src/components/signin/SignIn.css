@@ -15,7 +15,7 @@
   .head-items img{
     width: 50px;
     height: 50px;
-    border-bottom: 1px solid #fff;
+ 
   }
   .head-items h2{
     color: #fff;
@@ -45,6 +45,7 @@
   
   .signin-box {
     background: #101010;
+    border: 1px solid #3b3b3b;
     padding: 20px;
     border-radius: 10px;
     width: 350px;

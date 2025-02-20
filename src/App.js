@@ -2,39 +2,51 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SignIn from "./components/signin/SignIn";
 import SignUp from "./components/signup/SignUp";
-
 import UserDash from "./components/userDash/UserDash";
 import AdminDash from "./components/dashBoard/AdminDash";
 
 function App() {
   const firebaseUrl = "https://register-d6145-default-rtdb.firebaseio.com/users.json";
 
-const addAdminAccount = async () => {
-  const adminData = {
-    username: "admin_account",
-    password: "admin_password",
-    role: "admin",
+  const addAdminAccount = async () => {
+    const adminData = {
+      username: "admin_account",
+      password: "admin_password",
+      role: "admin",
+    };
+
+    try {
+      // Fetch existing users from the Firebase database
+      const response = await fetch(firebaseUrl);
+      const users = await response.json();
+
+      // Check if the admin account already exists
+      const adminExists = users && Object.values(users).some(user => user.username === adminData.username);
+
+      if (adminExists) {
+        console.log("Admin account already exists.");
+        return; // Stop execution if the admin account already exists
+      }
+
+      // Add the admin account if it doesn't exist
+      const addResponse = await fetch(firebaseUrl, {
+        method: "POST", // Use POST to add a new entry
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(adminData),
+      });
+
+      if (addResponse.ok) {
+        console.log("Admin account added successfully!");
+      } else {
+        console.log("Failed to add admin account.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
-  try {
-    const response = await fetch(firebaseUrl, {
-      method: "POST", // Use POST to add a new entry
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(adminData),
-    });
-
-    if (response.ok) {
-      console.log("Admin account added successfully!");
-    } else {
-      console.log("Failed to add admin account.");
-    }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
-
-// Call this function once to add the admin account
-addAdminAccount();
+  // Call this function once to add the admin account
+  addAdminAccount();
 
   return (
     <Router>
