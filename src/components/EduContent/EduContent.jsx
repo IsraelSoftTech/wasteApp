@@ -13,6 +13,7 @@ const EduContent = () => {
   const [newContent, setNewContent] = useState("");
   const [editMode, setEditMode] = useState(null);
   const [showWarning, setShowWarning] = useState(null);
+  const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
     const contentsRef = ref(db, "educational_contents");
@@ -62,11 +63,11 @@ const EduContent = () => {
       ) : (
         <ul>
           {contents.map(({ id, text }) => (
-            <li key={id}>
-              {text}
+            <li key={id} onClick={() => setExpandedId(expandedId === id ? null : id)}>
+              <span className="content-text" style={{cursor:"pointer"}}>{expandedId === id ? text : text.split("\n")[0]}</span>
               <div className="editDel">
-                <FiEdit className="edit-icon" onClick={() => { setEditMode(id); setNewContent(text); setShowModal(true); }} />
-                <FiTrash2 className="delete-icon" onClick={() => setShowWarning(id)} />
+                <FiEdit className="edit-icon" onClick={(e) => { e.stopPropagation(); setEditMode(id); setNewContent(text); setShowModal(true); }} />
+                <FiTrash2 className="delete-icon" onClick={(e) => { e.stopPropagation(); setShowWarning(id); }} />
               </div>
             </li>
           ))}
@@ -86,7 +87,7 @@ const EduContent = () => {
       {showWarning && (
         <div className="modal">
           <div className="modal-content">
-            <p>Do you want to delete this content?</p>
+            <p style={{color:"red",textAlign:"center"}}>Do you want to delete this content?⚠</p>
             <button onClick={() => handleDelete(showWarning)}>Yes</button>
             <button onClick={() => setShowWarning(null)}>No</button>
           </div>
