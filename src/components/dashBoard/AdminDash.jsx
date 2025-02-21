@@ -118,7 +118,7 @@ useEffect(() => {
           <span className="logo-icon"><img src={logo} alt=""/></span>
         </div>
         <ul className={`nav-links ${isSidebarOpen ? "active" : ""}`}>
-  <li >
+  <li>
     <Link to="/admin-dashboard" className="active link">
       <MdDashboard className="icon" /> Dashboard
     </Link>
