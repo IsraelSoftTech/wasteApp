@@ -18,8 +18,18 @@ import { FcGraduationCap } from "react-icons/fc";
 
 // Register necessary Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
-
+//abreviate username text
 const firebaseUrl = "https://register-d6145-default-rtdb.firebaseio.com/users.json";
+
+const abbreviateUsername = (username) => {
+  const words = username.split("_"); // Split by underscore if present
+
+  if (words.length >= 2) {
+    return (words[0][0] +  words[1].slice(0, 2)).toUpperCase(); // First letter of first word + First two letters of second word
+  } else {
+    return username.slice(0, 3).toUpperCase(); // If only one word, take first 3 letters
+  }
+};
 const AdminDash = () => {
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -79,26 +89,26 @@ const options = {
 // username display
 const [username, setUsername] = useState("Loading...");
 
-  useEffect(() => {
-    const fetchUsername = async () => {
-      try {
-        const response = await fetch(firebaseUrl);
-        const users = await response.json();
+useEffect(() => {
+  const fetchUsername = async () => {
+    try {
+      const response = await fetch(firebaseUrl);
+      const users = await response.json();
 
-        if (users) {
-          const loggedInUser = Object.values(users).find(user => user.role === "admin");
+      if (users) {
+        const loggedInUser = Object.values(users).find(user => user.role === "admin");
 
-          if (loggedInUser) {
-            setUsername(loggedInUser.username);
-          }
+        if (loggedInUser) {
+          setUsername(abbreviateUsername(loggedInUser.username));
         }
-      } catch (error) {
-        console.error("Error fetching username:", error);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching username:", error);
+    }
+  };
 
-    fetchUsername();
-  }, []);
+  fetchUsername();
+}, []);
 
   return (
     <div className="dashboard-container">
@@ -135,8 +145,9 @@ const [username, setUsername] = useState("Loading...");
       {/* Main Content */}
       <main className="main-content">
       <header className="topbar">
-          <MdMenu className="menu-icon" onClick={handleMenuClick} />
+        
           <h2>WASTE MANAGEMENT APPLICATION</h2>
+          <MdMenu className="menu-icon" onClick={handleMenuClick} />
           <div className={`search-box-mobile ${isSearchVisible ? "active" : ""}`}>
             <MdSearch className="search-icon-mobile" onClick={handleSearchClick} />
             <input type="text" placeholder="Place a search" />

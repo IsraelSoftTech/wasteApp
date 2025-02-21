@@ -397,6 +397,8 @@ top: 5px;
     font-size: 24px;
     cursor: pointer;
     color: #fff;
+    position: absolute;
+    left: 30px;
   }
 
 
@@ -434,7 +436,8 @@ top: 5px;
   position: absolute;
 
   right: 0;
-  background: white;
+  top: 40px;
+  background: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
