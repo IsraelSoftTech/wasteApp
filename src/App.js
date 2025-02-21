@@ -4,6 +4,9 @@ import SignIn from "./components/signin/SignIn";
 import SignUp from "./components/signup/SignUp";
 import UserDash from "./components/userDash/UserDash";
 import AdminDash from "./components/dashBoard/AdminDash";
+import Report from "./components/Report/Report";
+import Schedule from "./components/Schedule/Schedule";
+import Educare from "./components/Educare/Educare";
 
 function App() {
   const firebaseUrl = "https://register-d6145-default-rtdb.firebaseio.com/users.json";
@@ -20,17 +23,21 @@ function App() {
       const response = await fetch(firebaseUrl);
       const users = await response.json();
 
-      // Check if the admin account already exists based on the username and password
-      const adminExists = users && Object.values(users).some(user => user.username === adminData.username && user.password === adminData.password);
+      // Check if the admin account already exists
+      const adminExists =
+        users &&
+        Object.values(users).some(
+          (user) => user.username === adminData.username && user.password === adminData.password
+        );
 
       if (adminExists) {
         console.log("Admin account already exists.");
-        return; // If admin account exists, stop adding it again
+        return;
       }
 
       // Add the admin account if it doesn't exist
       const addResponse = await fetch(firebaseUrl, {
-        method: "POST", // Use POST to add a new entry
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(adminData),
       });
@@ -45,18 +52,20 @@ function App() {
     }
   };
 
-  // Call this function once to add the admin account if it doesn't exist
   useEffect(() => {
     addAdminAccount();
-  }, []); // Runs only once when the component mounts
+  }, []);
 
   return (
-    <Router>
+    <Router> {/* ✅ Wrap everything inside <Router> */}
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/admin-dashboard" element={<AdminDash />} />
         <Route path="/user-dashboard" element={<UserDash />} />
+        <Route path="/report" element={<Report />} />
+        <Route path="/schedule" element={<Schedule />} />
+        <Route path="/education" element={<Educare />} />
       </Routes>
     </Router>
   );

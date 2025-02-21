@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegFileAlt, FaUserAlt, FaBell } from "react-icons/fa";
 import { MdDelete, MdEdit, MdMenu, MdSearch } from "react-icons/md";
 import { AiOutlinePlusCircle } from 'react-icons/ai';
@@ -8,16 +8,18 @@ import { FaRegCalendarAlt, FaGraduationCap } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import "./AdminDash.css";
 import logo from "../../assets/logo.png";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 // Graph
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip } from "chart.js";
 import EduContent from "../EduContent/EduContent";
 import Users from "../users/Users";
+import { FcGraduationCap } from "react-icons/fc";
 
 // Register necessary Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
 
+const firebaseUrl = "https://register-d6145-default-rtdb.firebaseio.com/users.json";
 const AdminDash = () => {
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -74,6 +76,30 @@ const options = {
     y: { beginAtZero: true },
   },
 };
+// username display
+const [username, setUsername] = useState("Loading...");
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const response = await fetch(firebaseUrl);
+        const users = await response.json();
+
+        if (users) {
+          const loggedInUser = Object.values(users).find(user => user.role === "admin");
+
+          if (loggedInUser) {
+            setUsername(loggedInUser.username);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching username:", error);
+      }
+    };
+
+    fetchUsername();
+  }, []);
+
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
@@ -82,19 +108,28 @@ const options = {
           <span className="logo-icon"><img src={logo} alt=""/></span>
         </div>
         <ul className={`nav-links ${isSidebarOpen ? "active" : ""}`}>
-          <li className="active">
-            <MdDashboard className="icon" /> Dashboard
-          </li>
-          <li>
-            <FaRegFileAlt className="icon" /> Report
-          </li>
-          <li>
-            <FaRegCalendarAlt className="icon" /> Schedule
-          </li>
-          <li>
-            <FaGraduationCap className="icon" /> Education
-          </li>
-        </ul>
+  <li >
+    <Link to="/admin-dashboard" className="active link">
+      <MdDashboard className="icon" /> Dashboard
+    </Link>
+  </li>
+  <li>
+    <Link to="/report" className="link">
+      <FaRegFileAlt className="icon" /> Report
+    </Link>
+  </li>
+  <li>
+    <Link to="/schedule" className="link">
+      <FaRegCalendarAlt className="icon" /> Schedule
+    </Link>
+  </li>
+  <li>
+    <Link to="/education" className="link">
+      <FaGraduationCap  className="icon" /> Education
+    </Link>
+  </li>
+ 
+</ul>
       </aside>
 
       {/* Main Content */}
@@ -112,9 +147,12 @@ const options = {
           </div>
           <div className="top-icons">
             <FaBell className="icon bell" />
-            <div className="notification-badge">1</div>
+            <div className="notification-badge"></div>
             <div className="profile-container">
-              <FaUserAlt className="profile-icon" onClick={toggleProfileDropdown} />
+            <div className="text-profile" style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "8px" }}>
+      <FaUserAlt className="profile-icon" onClick={toggleProfileDropdown} />
+      <p style={{ textAlign: "center", fontSize: "14px", color: "#23AE60" }}>{username}</p>
+    </div>
               {isProfileDropdownOpen && (
                 <div className="profile-dropdown">
                   <p onClick={openEditProfile}>Edit Profile</p>
@@ -128,12 +166,12 @@ const options = {
         {isEditProfileOpen && (
           <div className="modal-overlay">
             <div className="modal-content">
-              <h3>Edit Profile</h3>
-              <label>Username:</label>
-              <input type="text" value="admin_account" readOnly />
-              <label>Password:</label>
-              <input type="text" value="admin_password" readOnly />
-              <button className="close-btn" onClick={closeEditProfile}>
+              <h3 style={{color:"black"}}>Edit Profile</h3>
+              <label style={{color:"black"}}>Username:</label>
+              <input type="text" value="admin_account" readOnly  style={{color:"black"}}/>
+              <label style={{color:"black"}}>Password:</label>
+              <input type="text" value="admin_password" readOnly style={{color:"black"}}/>
+              <button className="close-btn" onClick={closeEditProfile} style={{color:"black"}}> 
                 Close
               </button>
             </div>
@@ -173,7 +211,8 @@ const options = {
       
        
          <section className="user-illegal">
-         <Users/>
+          <div className="newUser" style={{overflowY:"hidden"}}> <Users /></div>
+        
           <div className="user-box">
             <h3>Illegal Dump Sites</h3>
             <div className="graph-placeholder"></div>

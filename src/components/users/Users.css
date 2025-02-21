@@ -1,3 +1,6 @@
+*{
+    overflow-x: hidden;
+}
 .modal {
     position: fixed;
     top: 50%;
