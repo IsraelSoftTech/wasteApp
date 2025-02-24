@@ -1,9 +1,10 @@
 import React from 'react';
-import { FaTrash, FaUser, FaBell, FaHome, FaSearch } from 'react-icons/fa';
+import { FaTrash, FaUser, FaBell, FaHome, FaSearch, FaLaptop, FaCalendar, FaCalendarCheck, FaCheckCircle, FaTruck, FaBook, FaUserAlt } from 'react-icons/fa';
 import './UserDash.css';
-import { FaHouseMedical } from 'react-icons/fa6';
+import { FaFileCircleCheck, FaHouseMedical, FaNoteSticky } from 'react-icons/fa6';
 import { FiBookOpen, FiTrendingUp } from 'react-icons/fi';
 import { BsTruck } from 'react-icons/bs';
+import { BiLineChart } from 'react-icons/bi';
 
 const UserDashboard = () => {
     return (
@@ -19,19 +20,19 @@ const UserDashboard = () => {
                         <span>Dashboard</span>
                     </div>
                     <div className="nav-container">
-                        <FaHome color='white' size={30}/>
+                        <BiLineChart color='white' size={30}/>
                         <span>Waste Report</span>
                     </div>
                     <div className="nav-container">
-                        <FaHome color='white' size={30}/>
+                        <FaTruck color='white' size={30}/>
                         <span>Schedule Pickup</span>
                     </div>
                     <div className="nav-container">
-                        <FaHome color='white' size={30}/>
+                        <FaBook color='white' size={30}/>
                         <span>Education</span>
                     </div>
                     <div className="nav-container">
-                        <FaHome color='white' size={30}/>
+                        <FaUserAlt color='white' size={30}/>
                         <span>Profile</span>
                     </div>
                 </div>
@@ -54,21 +55,27 @@ const UserDashboard = () => {
                 <div className="udb-content">
                 <div className="boxes">
                     <div className="box">
-                        <div className="inner-box"></div>
+                        <div className="inner-box">
+                            <FaFileCircleCheck size={24}/>
+                        </div>
                         <div className="box-details">
                             <small>Total Reports</small>
                             <span>5</span>
                         </div>
                     </div>
                     <div className="box">
-                        <div className="inner-box"></div>
+                        <div className="inner-box">
+                            <FaCalendarCheck size={25}/>
+                        </div>
                         <div className="box-details">
                             <small>pending Reports</small>
                             <span>5</span>
                         </div>
                     </div>
                     <div className="box">
-                        <div className="inner-box"></div>
+                        <div className="inner-box">
+                            <FaCheckCircle size={24}/>
+                        </div>
                         <div className="box-details">
                             <small>Completed Pickups</small>
                             <span>5</span>
@@ -79,8 +86,103 @@ const UserDashboard = () => {
                     <div className="sboxes">
                         <div className="sbox">
                             <h1>Recent Reports</h1>
+                            <div className="sinner-box">
+                                <div className="inner-box-left-detail">
+                                <div className="icon-box">
+                                    <FaTrash size={24}/>
 
-                            .
+                                </div>
+                                <div className="sinner-box-details">
+                                    <small>Plastic Waste</small>
+                                    <span>End of Tar</span>
+
+                                </div>
+                                </div>
+                                <div className="inner-box-right-detail">
+                                    <div className="status-box">
+                                        <small>Pending</small>
+
+                                    </div>
+                                </div>
+                         
+
+
+                            </div>
+                            <div className="sinner-box">
+                                <div className="inner-box-left-detail">
+                                <div className="icon-box">
+                                    <FaLaptop size={24}/>
+
+                                </div>
+                                <div className="sinner-box-details">
+                                    <small>Electronic waste</small>
+                                    <span>End of Tar</span>
+
+                                </div>
+                                </div>
+                                <div className="inner-box-right-detail">
+                                    <div id='progress' className="status-box">
+                                        <small>In progress</small>
+
+                                    </div>
+                                </div>
+                         
+
+
+                            </div>
+
+
+                            
+                        </div>
+                        <div className="sbox">
+                            <h1>Upcoming Pickup</h1>
+                            <div className="sinner-box">
+                                <div className="inner-box-left-detail">
+                                <div className="icon-box">
+                                    <FaCalendar size={24}/>
+
+                                </div>
+                                <div className="sinner-box-details">
+                                    <small>General waste</small>
+                                    <span>Tomorrow, 10:00 am</span>
+
+                                </div>
+                                </div>
+                                <div className="inner-box-right-detail">
+                                    <div className="status-box">
+                                        <small>Pending</small>
+
+                                    </div>
+                                </div>
+                         
+
+
+                            </div>
+                            <div className="sinner-box">
+                                <div className="inner-box-left-detail">
+                                <div className="icon-box">
+                                    <FaCalendar size={24}/>
+
+                                </div>
+                                <div className="sinner-box-details">
+                                    <small>Recyclables</small>
+                                    <span>Next week, 2:00pm</span>
+
+                                </div>
+                                </div>
+                                <div className="inner-box-right-detail">
+                                    <div id='progress' className="status-box">
+                                        <small>In progress</small>
+
+                                    </div>
+                                </div>
+                         
+
+
+                            </div>
+
+
+                            
                         </div>
                     </div>
                 </div>
